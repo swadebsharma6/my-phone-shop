@@ -17,7 +17,7 @@ const PhoneDetails = () => {
             setPhone(select);
            }, [id, phones]);
 
-           const { image, phone_name, brand_name, price,} = phone || {};
+           const { image, phone_name, brand_name, price,} = phone;
            
      return (
         <div className="h-[80vh] flex justify-center items-center">
