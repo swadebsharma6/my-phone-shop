@@ -2,7 +2,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const SinglePhone = ({phone}) => {
+
     const {id, image, phone_name, price,} = phone || {};
+    
     return (
         <div className='m-4'>
         <div className="relative flex w-96 flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-md">
