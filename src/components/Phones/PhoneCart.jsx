@@ -1,9 +1,44 @@
 import PropTypes from 'prop-types';
+import swal from 'sweetalert';
 
 const PhoneCart = ({phone}) => {
     console.log(phone)
-    const { image, phone_name,brand_name, price,} = phone ;
+    const {id, image, phone_name,brand_name, price,} = phone ;
 
+
+
+    const handleAddToLS = () =>{
+        const addedFavoriteOnLS = [];
+
+        const favoriteItems = JSON.parse(localStorage.getItem('favorites'));
+
+        // jokhon kichu nai tokhon if er moddhy dukhan
+        if(!favoriteItems){
+            addedFavoriteOnLS.push(phone);
+            localStorage.setItem('favorites', JSON.stringify(addedFavoriteOnLS));
+            swal("Good job!", "Your Favorite added!", "success");
+        }
+
+        else{
+
+            const isExist = favoriteItems.find(phone =>phone.id ===id);
+
+            if(!isExist){
+                addedFavoriteOnLS.push(...favoriteItems, phone) ;
+            localStorage.setItem('favorites', JSON.stringify(addedFavoriteOnLS));
+            swal("Good job!", "Your Favorite added!", "success");
+            }
+
+            else{
+                swal("Sorry!", "Already Added Favorite", "error");
+            }
+
+           
+
+        }
+
+        
+    }
 
     return (
         <div className='h-[70vh] flex justify-center items-center'>
@@ -29,29 +64,9 @@ const PhoneCart = ({phone}) => {
             selling licenses. Yet its own business model disruption is only part of
             the story
           </p>
-          <a className="inline-block" href="#">
-            <button
-              className="flex select-none items-center gap-2 rounded-lg py-3 px-6 text-center align-middle font-sans text-xs font-bold uppercase text-pink-500 transition-all hover:bg-pink-500/10 active:bg-pink-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              Add Favorite
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="2"
-                stroke="currentColor"
-                aria-hidden="true"
-                className="h-4 w-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                ></path>
-              </svg>
-            </button>
-          </a>
+         <div>
+            <button onClick={handleAddToLS} className='btn btn-secondary'>Add Favorite</button>
+         </div>
         </div>
       </div>
            </div>
